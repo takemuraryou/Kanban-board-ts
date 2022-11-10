@@ -1,22 +1,32 @@
 {
-    "compilerOptions":{
-        //Target latest browsers
-        "target": "ES2019",
-        "lib":["ES2019", "DOM", "DOM.iterable"],
+  "compilerOptions": {
+    //Target latest browsers
+    "target": "ES2019",
+    "lib": ["ES2019", "DOM", "DOM.iterable"],
 
-        //Required: Use module="ESNext so that TS won't compile/disallow any ESM syntax.
-        "module": "ESNext",
+    //Required: Use module="ESNext so that TS won't compile/disallow any ESM syntax.
+    "module": "ESNext",
 
-        //Required for some packages.
-        "moduleResolution": "Node",
+    //Required for some packages.
+    "moduleResolution": "Node",
 
-        // Only for type checks.
-        "incremental": true,
-        "outDir": "./.ts-cache/",
+    //'import React' instead of 'import * as React'
+    "allowSyntheticDefaultImports": true,
 
-        //Useful type checks.
-        "strictNullChecks": true
-    },
+    //<div /> => React.createElement("div)
+    "jsx": "react",
 
-    "include": ["./src/**/*"]
+    // Only for type checks.
+    "incremental": true,
+    "outDir": "./.ts-cache/",
+
+    //cf.https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311
+    // cf. https://stackoverflow.com/a/55540896
+    "skipLibCheck": true,
+
+    //Useful type checks.
+    "strictNullChecks": true
+  },
+
+  "include": ["./src/**/*"]
 }
