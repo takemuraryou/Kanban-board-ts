@@ -35,11 +35,12 @@ export const ConfirmButton = styled(Button)`
 `
 
 export const DangerButton = styled(Button)`
-    border-color: ${color.Red};
-    background-color: ${color.Maroon};
-    background-image: linear-gradient(${color.Red}, ${color.Maroon});
-    color: ${color.White};
+  border-color: ${color.Red};
+  background-color: ${color.Maroon};
+  background-image: linear-gradient(${color.Red}, ${color.Maroon});
+  color: ${color.White};
 
-    :hover:not(:disabled) {
-        border-color: ${color.Maroon};
+  :hover:not(:disabled) {
+    border-color: ${color.Maroon};
+  }
 `
