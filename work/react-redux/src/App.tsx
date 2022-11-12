@@ -79,6 +79,26 @@ export function App() {
     )
   }
 
+  const [deletingCardID, setDeletingCardID] = useState<string | undefined>(
+    undefined,
+  )
+  const deleteCard = () => {
+    const cardID = deletingCardID
+    if (!cardID) return
+
+    setDeletingCardID(undefined)
+
+    type Columns = typeof columns
+    setColumns(
+      produce((columns: Columns) => {
+        const column = columns.find(col => col.cards.some(c => c.id === cardID))
+        if (!column) return
+
+        column.cards = column.cards.filter(c => c.id !== cardID)
+      }),
+    )
+  }
+
   return (
     <Container>
       <Header filterValue={filterValue} onFilterChange={setFilterValue} />
@@ -93,14 +113,20 @@ export function App() {
               cards={cards}
               onCardDragStart={cardID => setDraggingCardID(cardID)}
               onCardDrop={entered => dropCardTo(entered ?? columnID)}
+              onCardDeleteClick={cardID => setDeletingCardID(cardID)}
             />
           ))}
         </HorizontalScroll>
       </MainArea>
 
-      <Overlay>
-        <DeleteDialog />
-      </Overlay>
+      {deletingCardID && (
+        <Overlay onClick={() => setDeletingCardID(undefined)}>
+          <DeleteDialog
+            onConfirm={deleteCard}
+            onCancel={() => setDeletingCardID(undefined)}
+          />
+        </Overlay>
+      )}
     </Container>
   )
 }
