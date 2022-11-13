@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import produce from 'immer'
 import { randomID } from './util'
+import { api } from './api'
 import { Header as _Header } from './Header'
 import { Column } from './Column'
 import { DeleteDialog } from './DeleteDialog'
@@ -56,6 +57,10 @@ export function App() {
   }
 
   const addCard = (columnID: string) => {
+    const column = columns.find(c => c.id === columnID)
+    if (!column) return
+
+    const text = column.text
     const cardID = randomID()
 
     type Columns = typeof columns
@@ -71,6 +76,12 @@ export function App() {
         column.text = ''
       }),
     )
+
+    //*setColumnsの外じゃないといけない*//
+    api('POST /v1/cards', {
+      id: cardID,
+      text,
+    })
   }
 
   const [draggingCardID, setDraggingCardID] = useState<string | undefined>(
